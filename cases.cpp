@@ -12,7 +12,7 @@ public:
     double RB_time  = 0;
 
     void initInsertionComparision(string ref);
-    void initSearchComparision(string ref);
+    void initSearchComparision(string ref, BstNode *bstNode, AvlNode *avlNode, RB *rbNode);
 };
 
 
@@ -85,9 +85,42 @@ void Case::initInsertionComparision(string ref) {
     printf("AVL TIME -> %fs\n", AVL_time);
     printf("RB  TIME -> %fs\n", RB_time);
     file.close();
+
+    int option;
+    do {
+        cout << "=====================" << endl;
+        cout << "    INPUT OPTIONS" << endl;
+        cout << "=====================" << endl;
+        cout << "ref: SEARCH" << endl;
+        cout << "1 - 5.000" << endl << "2 - 10.000" << endl << "3 - 100.000" << endl << "0 - EXIT" << endl;
+        cout << "Option: ";
+        cin  >> option;
+
+        switch (option) {
+        case 1:
+            initSearchComparision("sample/search_five_thousand.txt", bstNode, avlNode, rbNode);
+            break;
+        
+        case 2:
+            initSearchComparision("sample/search_ten_thousand.txt", bstNode, avlNode, rbNode);
+            break;
+        
+        case 3:
+            initSearchComparision("sample/search_one_hundred_thousand.txt", bstNode, avlNode, rbNode);
+            break;
+
+        case 0:
+            return;
+            break;
+        
+        default:
+            cout << "Option not found!" << endl;
+            break;
+        }
+    } while (option != 0);
 }
 
-void Case::initSearchComparision(string ref) {
+void Case::initSearchComparision(string ref, BstNode *bstNode, AvlNode *avlNode, RB *rbNode) {
     string data_from_txt;
     clock_t start;
 
@@ -96,11 +129,13 @@ void Case::initSearchComparision(string ref) {
     RB  rb;
     Item item;
 
-    BstNode *bstNode = bst.initialize();
-    AvlNode *avlNode = avl.initialize();
-    RB      *rbNode  = rb.initialize();
+    BstNode *bstTemp = NULL;
+    AvlNode *avlTemp = NULL;
+    RbNode  *rbTemp  = NULL;
 
-    cout << endl << "ALL TREES HAVE BEEN INITIALIZED" << endl;
+    int bstFind = 0;
+    int avlFind = 0;
+    int rbFind  = 0;
 
     ifstream file;
     file.open(ref);
@@ -112,27 +147,34 @@ void Case::initSearchComparision(string ref) {
 
     cout << "..." << endl;
 
-    // BST INSERTION
+    // BST SEARCH
     start = clock();
     while (file.good()) {
         file >> data_from_txt;
         item.value = stof(data_from_txt);
-        bst.insertValue(&bstNode, item);
+        bst.search(&bstNode, &bstTemp, item);
+        if (bstTemp != NULL) {
+            bstFind++;
+            bstTemp = NULL;
+        }
     }
     BST_time = ((clock() - start) / (double)CLOCKS_PER_SEC);
-    // bst.preOrderPrint(bstNode);
 
     file.clear();
     file.seekg(0, ios::beg);
 
     cout << "..." << endl;
 
-    // AVL INSERTION
+    // AVL SEARCH
     start = clock();
     while (file.good()) {
         file >> data_from_txt;
         item.value = stof(data_from_txt);
-        avl.insertValue(&avlNode, item);
+        avl.search(&avlNode, &avlTemp, item);
+        if (avlTemp != NULL) {
+            avlFind++;
+            avlTemp = NULL;
+        }
     }
     AVL_time = ((clock() - start) / (double)CLOCKS_PER_SEC);
     
@@ -141,16 +183,24 @@ void Case::initSearchComparision(string ref) {
 
     cout << "..." << endl;
 
-    // RB INSERTION
+    // RB SEARCH
     start = clock();
     while (file.good()) {
         file >> data_from_txt;
         item.value = stof(data_from_txt);
-        rb.insertValue(rbNode, rb.newNode(item));
+        rb.search(&rbNode->root, &rbTemp, item);
+        if (rbTemp != NULL) {
+            rbFind++;
+            rbTemp = NULL;
+        }
     }
     RB_time = ((clock() - start) / (double)CLOCKS_PER_SEC);
 
     cout << "PROCESS COMPLETED SUCCESSFULLY!" << endl;
+
+    printf("BST FINDED -> %d\n", bstFind);
+    printf("AVL FINDED -> %d\n", avlFind);
+    printf("RB  FINDED -> %d\n", rbFind);
 
     printf("BST TIME -> %fs\n", BST_time);
     printf("AVL TIME -> %fs\n", AVL_time);

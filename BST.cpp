@@ -21,7 +21,7 @@ void BST::insertValue(BstNode **node, Item requestedValue) {
 
 void BST::search(BstNode **node, BstNode **temp, Item requestedValue) {
     if (*node == NULL) {
-        cout << "[ERROR]: NODE NOT FOUND" << endl;
+        // cout << "[ERROR]: NODE NOT FOUND" << endl;
         return;
     }
 
@@ -32,6 +32,7 @@ void BST::search(BstNode **node, BstNode **temp, Item requestedValue) {
         search(&(*node)->right, temp, requestedValue);
         return;
     }
+    // cout << "NODE FOUNDED" << endl;
     *temp = *node;
 }
 

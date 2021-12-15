@@ -8,7 +8,7 @@ int main() {
         cout << "=====================" << endl;
         cout << "    INPUT OPTIONS" << endl;
         cout << "=====================" << endl;
-        cout << "1 - Insert 1.000" << endl << "2 - 10.000" << endl << "3 - 1.000.000" << endl << "0 - EXIT" << endl;
+        cout << "ref: INSERTION" << endl;
         cout << "1 - 1.000" << endl << "2 - 10.000" << endl << "3 - 1.000.000" << endl << "0 - EXIT" << endl;
         cout << "Option: ";
         cin  >> option;

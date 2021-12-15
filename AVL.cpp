@@ -37,7 +37,7 @@ void AVL::insertValue(AvlNode **node, Item requestedValue) {
 
 void AVL::search(AvlNode **node, AvlNode **temp, Item requestedValue) {
     if (*node == NULL) {
-        cout << "[ERROR]: NODE NOT FOUND" << endl;
+        // cout << "[ERROR]: NODE NOT FOUND" << endl;
         return;
     } else if ((*node)->item.value > requestedValue.value) { 
         search(&(*node)->left, temp, requestedValue);
@@ -46,8 +46,8 @@ void AVL::search(AvlNode **node, AvlNode **temp, Item requestedValue) {
         search(&(*node)->right, temp, requestedValue);
         return;
     }
+    // cout << "NODE FOUNDED" << endl;
     *temp = *node;
-    cout << "NODE FOUNDED -> ";
 }
 
 int AVL::getWeight(AvlNode **node) {

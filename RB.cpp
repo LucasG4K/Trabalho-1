@@ -129,7 +129,7 @@ void RB::leftRotation(RbNode *node, RB *tree) {
 
 void RB::search(RbNode **node, RbNode **temp, Item requestedValue) {
     if (*node == NULL) {
-        cout << "[ERROR]: NODE NOT FOUND" << endl;
+        // cout << "[ERROR]: NODE NOT FOUND" << endl;
         return;
     } else if ((*node)->item.value > requestedValue.value) { 
         search(&(*node)->left, temp, requestedValue);
@@ -138,6 +138,7 @@ void RB::search(RbNode **node, RbNode **temp, Item requestedValue) {
         search(&(*node)->right, temp, requestedValue);
         return;
     }
+    // cout << "NODE FOUNDED" << endl;
     *temp = *node;
 }
 
