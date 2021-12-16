@@ -95,7 +95,7 @@ void AVL::doubleLeftRotation(AvlNode **node) {
 void AVL::preOrderPrint(AvlNode *node) {
     if (node != NULL) {
         // cout << node->item.value << ":" << node->weight << "\t";
-        cout << node->item.value << " ";
+        printf("%f ",  node->item.value);
         preOrderPrint(node->left);
         preOrderPrint(node->right);
     }
@@ -104,7 +104,7 @@ void AVL::preOrderPrint(AvlNode *node) {
 void AVL::inOrderPrint(AvlNode *node) {
     if (node != NULL) {
         inOrderPrint(node->left);
-        cout << node->item.value << " ";
+        printf("%f ",  node->item.value);
         inOrderPrint(node->right);
     }
 }
@@ -113,6 +113,6 @@ void AVL::postOrderPrint(AvlNode *node) {
     if (node != NULL) {
         postOrderPrint(node->left);
         postOrderPrint(node->right);
-        cout << node->item.value << " ";
+        printf("%f ",  node->item.value);
     }
 }

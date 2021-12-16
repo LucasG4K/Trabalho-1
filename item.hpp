@@ -3,7 +3,7 @@
 
 class Item {
 public:
-    float value;
+    double value;
 };
 
 #endif

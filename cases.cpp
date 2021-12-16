@@ -1,9 +1,9 @@
 #include "BST.hpp"
 #include "AVL.hpp"
 #include "RB.hpp"
+#include <fstream>
 #include <string>
 #include <ctime>
-#include <fstream>
 
 class Case {
 public:
@@ -39,28 +39,27 @@ void Case::initInsertionComparision(string ref) {
         return;
     }
 
-    cout << "..." << endl;
+    cout << "READING '" << ref << "' AND INSERTING INTO BST..." << endl;
 
     // BST INSERTION
     start = clock();
     while (file.good()) {
         file >> data_from_txt;
-        item.value = stof(data_from_txt);
+        item.value = stod(data_from_txt);
         bst.insertValue(&bstNode, item);
     }
     BST_time = ((clock() - start) / (double)CLOCKS_PER_SEC);
-    // bst.preOrderPrint(bstNode);
 
     file.clear();
     file.seekg(0, ios::beg);
 
-    cout << "..." << endl;
+    cout << "READING '" << ref << "' AND INSERTING INTO AVL..." << endl;
 
     // AVL INSERTION
     start = clock();
     while (file.good()) {
         file >> data_from_txt;
-        item.value = stof(data_from_txt);
+        item.value = stod(data_from_txt);
         avl.insertValue(&avlNode, item);
     }
     AVL_time = ((clock() - start) / (double)CLOCKS_PER_SEC);
@@ -68,13 +67,13 @@ void Case::initInsertionComparision(string ref) {
     file.clear();
     file.seekg(0, ios::beg);
 
-    cout << "..." << endl;
+    cout << "READING '" << ref << "' AND INSERTING INTO RB..." << endl;
 
     // RB INSERTION
     start = clock();
     while (file.good()) {
         file >> data_from_txt;
-        item.value = stof(data_from_txt);
+        item.value = stod(data_from_txt);
         rb.insertValue(rbNode, rb.newNode(item));
     }
     RB_time = ((clock() - start) / (double)CLOCKS_PER_SEC);
@@ -92,7 +91,7 @@ void Case::initInsertionComparision(string ref) {
         cout << "    INPUT OPTIONS" << endl;
         cout << "=====================" << endl;
         cout << "ref: SEARCH" << endl;
-        cout << "1 - 5.000" << endl << "2 - 10.000" << endl << "3 - 100.000" << endl << "0 - EXIT" << endl;
+        cout << "1 - 5.000" << endl << "2 - 10.000" << endl << "3 - 100.000" << endl << "0 - RETURN" << endl;
         cout << "Option: ";
         cin  >> option;
 
@@ -144,57 +143,60 @@ void Case::initSearchComparision(string ref, BstNode *bstNode, AvlNode *avlNode,
         cout << "Error while opening file '" << ref << "'! >>> ending process..." << endl;
         return;
     }
-
-    cout << "..." << endl;
+    
+    cout << "READING '" << ref << "' AND SEARCHING IN BST..." << endl;
 
     // BST SEARCH
     start = clock();
     while (file.good()) {
         file >> data_from_txt;
-        item.value = stof(data_from_txt);
+        item.value = stod(data_from_txt);
         bst.search(&bstNode, &bstTemp, item);
         if (bstTemp != NULL) {
             bstFind++;
-            bstTemp = NULL;
         }
+        bstTemp = NULL;
     }
     BST_time = ((clock() - start) / (double)CLOCKS_PER_SEC);
+    free(bstTemp);
 
     file.clear();
     file.seekg(0, ios::beg);
 
-    cout << "..." << endl;
+    cout << "READING '" << ref << "' AND SEARCHING IN AVL..." << endl;
 
     // AVL SEARCH
     start = clock();
     while (file.good()) {
         file >> data_from_txt;
-        item.value = stof(data_from_txt);
+        item.value = stod(data_from_txt);
         avl.search(&avlNode, &avlTemp, item);
         if (avlTemp != NULL) {
             avlFind++;
-            avlTemp = NULL;
         }
+        avlTemp = NULL;
     }
     AVL_time = ((clock() - start) / (double)CLOCKS_PER_SEC);
+    free(avlTemp);
     
     file.clear();
     file.seekg(0, ios::beg);
 
-    cout << "..." << endl;
+    cout << "READING '" << ref << "' AND SEARCHING IN RB..." << endl;
 
     // RB SEARCH
     start = clock();
     while (file.good()) {
         file >> data_from_txt;
-        item.value = stof(data_from_txt);
+        item.value = stod(data_from_txt);
         rb.search(&rbNode->root, &rbTemp, item);
         if (rbTemp != NULL) {
             rbFind++;
-            rbTemp = NULL;
         }
+        rbTemp = NULL;
     }
     RB_time = ((clock() - start) / (double)CLOCKS_PER_SEC);
+    free(rbTemp);
 
     cout << "PROCESS COMPLETED SUCCESSFULLY!" << endl;
 

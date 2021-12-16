@@ -16,6 +16,10 @@ cases.o: cases.cpp
 main.o: main.cpp
 	g++ -c main.cpp
 
+gen:
+	g++ generate_data.cpp AVL.cpp -o genData
+	./genData
+
 run:
 	./output
 
@@ -23,4 +27,4 @@ remove:
 	rm -f *.o
 
 clean:
-	rm -f *.o output
+	rm -f *.o output genData

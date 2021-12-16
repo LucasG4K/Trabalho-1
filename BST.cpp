@@ -13,7 +13,8 @@ void BST::insertValue(BstNode **node, Item requestedValue) {
     } else {
         if ((*node)->item.value > requestedValue.value) {
             insertValue(&(*node)->left, requestedValue);
-        } else if ((*node)->item.value < requestedValue.value) {
+        }
+        if ((*node)->item.value < requestedValue.value) {
             insertValue(&(*node)->right, requestedValue);
         }
     }
@@ -38,9 +39,9 @@ void BST::search(BstNode **node, BstNode **temp, Item requestedValue) {
 
 void BST::preOrderPrint(BstNode *node){
     if (node != NULL) {
+        printf("%f ",  node->item.value);
         preOrderPrint(node->left);
         preOrderPrint(node->right);
-        printf("%f ",  node->item.value);
     }
 }
 
@@ -54,8 +55,8 @@ void BST::inOrderPrint(BstNode *node){
 
 void BST::postOrderPrint(BstNode *node){
     if (node != NULL) {
-        printf("%f ",  node->item.value);
         postOrderPrint(node->left);
         postOrderPrint(node->right);
+        printf("%f ",  node->item.value);
     }
 }
