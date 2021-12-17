@@ -165,4 +165,3 @@ void RB::postOrderPrint(RB *tree, RbNode *node) {
         printf("%f:%d:%f ",  node->item.value, node->color, node->parent->item.value);
     }
 }
-

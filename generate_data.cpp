@@ -13,9 +13,9 @@ using namespace std;
 double get_random() { return (1 + (double)rand() / (double)RAND_MAX * 100000); }
 
 int main() {
-    string ref1 = "sample2/insert_thousand.txt";
-    string ref2 = "sample2/insert_ten_thousand.txt";
-    string ref3 = "sample2/insert_million.txt";
+    string ref1 = "sample/insert_thousand.txt";
+    string ref2 = "sample/insert_ten_thousand.txt";
+    string ref3 = "sample/insert_million.txt";
 
     fstream fileT, fileTT, fileM;
     fileT.open(ref1, ios::in | ios::out | ios::trunc);
