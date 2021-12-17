@@ -5,15 +5,15 @@ Para esse trabalho, a proposta era que fizéssesmos a implementação de uma Ár
 
 ## **Instruções e referências para o uso do código**
 
-O algoritmo atual deste repositório foi construído utilizando a linguagem C++, através do sistema operacional Windows 11 operando em ambiente Linux (WSL2 - Ubuntu -20.04). A compilação pode ser feita por meio do comando "make" e executado com "make run". O "output" e objetos (*-o) podem ser removidos com "make clean" em caso de algum erro imprevisto com compilações passadas.
+O algoritmo atual deste repositório foi construído utilizando a linguagem C++, através do sistema operacional Windows 11 operando em ambiente Linux (WSL2 - Ubuntu-20.04). A compilação pode ser feita por meio do comando "make" e executado com "make run". O "output" e objetos (*-o) podem ser removidos com "make clean" em caso de algum erro imprevisto com compilações passadas.
 
 Ao inicializar o programa, é necessário que se faça primeiro a escolha das bases de inserção e assim inicie o preenchimento das árvores. Somente na próxima etapa existe a capacidade de se fazer pesquisas dentro das estruturas carregadas previamente.
 
-**obs:** para gerar novas bases aleatórias de inserção utiliza-se o comando "make gen", sendo que os novos arquivos irão sobrepor o arquivo original.
+**obs:** para gerar novas bases aleatórias de inserção utiliza-se o comando "make gen", sendo que os novos arquivos irão sobrepor os arquivos originais.
 
 ## **Explicação sucinta sobre a Árvore Rubro Negra**
 
-A Árvore Rubro Negra assim como a Árvore AVL são tipos de dados derivados da Árvore de Pesquisa Binária Padrão (BST). Assim como a BST, o propósito dessa estrutura é o armazenamento de dados e a disposição de seus valores de forma que se tenha uma resposta para pesquisa extremamente eficiente. Porém, a principal diferença é que, nesses dois tipos, faz se necessário um balanceamento, respeitando regras previstas por cada tipo. Esses balanceamentos nada mais são que uma tentativa de manter a árvore com um aspecto uniforme, reconstruindo seus "galhos" mais unidos para que assim reduza o tempo de pesquisa de itens em seu escopo. Além disso, apesar da semelhança entre esse tipo e o tipo AVL (Árvores balanceadas) e uma breve semelhança com a BST, cada estrutura segue sua própria regra e portanto podem vir a ter usos e resultados diferentes, como pode ser observado ao final da análise.
+A Árvore Rubro Negra (RB), assim como a Árvore AVL, é um tipo de dados derivado da Árvore de Pesquisa Binária Padrão (BST). Assim como a BST, o propósito dessa estrutura é o armazenamento de dados e a disposição de seus valores de forma que se tenha uma resposta para pesquisa bastante eficiente se comparado a outros modelos de armazenamento para pesquisa. Porém, a principal diferença está na necessidade de correções e balanceamentos respeitando regras específicas para esse tipo, assim como acontece também para a árvore AVL. Esses balanceamentos nada mais são que uma tentativa de manter a árvore com um aspecto uniforme, reconstruindo seus "galhos" mais unidos para que assim reduza o tempo de eventuais pesquisas de itens em seu escopo. Além disso, apesar da semelhança entre esse tipo e o tipo AVL (Árvores balanceadas) e uma breve semelhança com a BST, cada estrutura segue sua própria regra e portanto podem vir a ter usos e resultados diferentes, será mostrado ao final da análise.
 
 ### Regras para a Árvore Rubro Negra
 1. Todo nó da árvore é vermelho ou preto.
@@ -24,7 +24,7 @@ A Árvore Rubro Negra assim como a Árvore AVL são tipos de dados derivados da 
 
 ## **Sobre o desenvolvimento**
 
-Seguindo com o desenvolvimento, a implementação da árvore RB também necessitava de regras para que a estrutura final estivesse de acordo com o que foi apresentado acima. Essa estrutura tem grande predisposição a se desbalancear ao fazer operações de inserção e/ou remoção por sua extensão. Porém, apesar disso, a característica forte desse modelo é sua capacidade de se auto balancear e corrigir esse possível problema. Para que esse balanceamento aconteça, é necessário que siga as seguintes regras durante a inserção:
+Seguindo com o desenvolvimento, a implementação da árvore RB necessitava de regras para que a estrutura final estivesse de acordo com o que foi apresentado acima. Essa estrutura tem grande predisposição a se desbalancear ao fazer operações de inserção e/ou remoção por sua extensão. Porém, apesar disso, a característica forte desse modelo é sua capacidade de se auto balancear e corrigir esse possível problema. Para que esse balanceamento aconteça, é necessário portanto que alguns protocolos sejam seguidos durante o método de inserção:
 
 1. Se a árvore está vazia, crie um nó raiz na cor preta
 2. Se a árvore não está vazia, crie um nó folha na cor vermelha
@@ -35,10 +35,10 @@ Seguindo com o desenvolvimento, a implementação da árvore RB também necessit
 
 **obs:** as operações de remoção não foram utilizadas e portanto suas regras não serão definidas por esse documento uma vez que o trabalho não fez necessário esse método.
 
-Sendo assim, o principal desafio de implementação eram as regras de inserção que eram a chave para que ao final do processo a estrutura estivesse totalmente de acordo com as regras gerais da RB. Para tanto ao início, fiz a tentativa de implementar utilizando a forma recursiva, assim como foram feitas a BST e AVL, além disso utilizando a estrutura de ponteiros de ponteiro (**) para manipulação da memória, possível nessa linguagem. Porém, a claridade da escrita não estava concisa para mim e fiz uma mudança geral que ao final possibilitou a inserção de itens para qualquer caso.
-Desse modo, deixei de lado o método recursivo, substituindo por um loop e alterando o acesso a memória para trabalhar apenas com ponteiros simples (*). Fazendo isso, consegui uma melhor claridade na escrita e foi possível melhores observações no código para fazer trocas de endereço e/ou valor da memória e assim definir a posição correta a se fazer as rotações.
+Sendo assim, o principal desafio de implementação eram as regras de rotações que eram a chave para que ao final do processo a estrutura estivesse totalmente de acordo com as regras gerais da RB. Para tanto ao início, fiz a tentativa de implementar utilizando a forma recursiva, assim como foram feitas a BST e AVL, além disso utilizando a estrutura de ponteiros de ponteiro (**) para manipulação da memória, possível nessa linguagem. Porém, a claridade da escrita não era um fator de destaque no código, isso somado as fortes recomendações de sites e fóruns para o abandono do modelo recursivo para esse tipo abstrato de dado. Sendo assim, optei por uma mudança geral que ao final possibilitou a inserção de itens para qualquer caso.
+Para tanto, deixei de lado o método recursivo, substituindo por um loop e alterando o acesso a memória para trabalhar apenas com ponteiros simples (*). Fazendo isso, consegui uma melhor claridade na escrita e foi possível melhores observações no código para fazer trocas de endereço e/ou valor da memória e assim definir a posição correta a se fazer as rotações.
 
-Com isso, restava apenas a disposição das três árvores para atender a demanda de armazenar as entradas de 1.000, 10.000 e 1.000.000 de valores, provenientes de uma base de números gerados aleatoriamente do tipo ponto flutuante (double). A fim de localizar essa estrutura, ela pode ser encontrada no arquivo "generate_data.cpp" e deve ser executado separadamente do restante do projeto.
+Por fim, restava apenas a disposição das três árvores para atender a demanda de armazenar as entradas de 1.000, 10.000 e 1.000.000 de valores, provenientes de uma base de números gerados aleatoriamente do tipo ponto flutuante (double). A fim de localizar essa estrutura geradora de valores, ela pode ser encontrada no arquivo "generate_data.cpp" e deve ser executada separadamente do restante do projeto, utilizando o comando apresentado anteriormente, "make gen".
 
 ### **A estrutura dessas três árvores podem ser vistas em:**
 
@@ -79,7 +79,6 @@ Sendo assim, as BSTs são indicadas para processos nos quais são necessário um
 Já a árvore AVL pode ser utilizada em processos de armazenamento que necessitam de grandes quantidades de pesquisa de dados.
 
 E por último, a árvore RB deverá ser uma boa referência nos projetos que se tenham uma prioridade maior nas inserções e deleções de dados.
-
 
 ## **Referências**
 
